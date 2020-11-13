@@ -1,7 +1,7 @@
 import tensorflow.keras
 from PIL import Image, ImageOps
 import numpy as np
-
+import pathlib
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
 
@@ -22,12 +22,12 @@ def get_file_list(data_dir, file_type='jpg'):
     @returns A list of all the files of type file_type in data_dir
     """
     data_dir = pathlib.Path(data_dir)
-    img_list = list(data_dir.glob(f'*/*.{file_type}'))
-    return img_list
+    img_list = list(data_dir.glob(f'*.{file_type}'))
+    # return img_list
 
-    for image in img_list:
+    for image_name in img_list:
         # Replace this with the path to your image
-        image = Image.open('converted_keras/princessbride.png')
+        image = Image.open(image_name)
 
         #resize the image to a 224x224 with the same strategy as in TM2:
         #resizing the image to be at least 224x224 and then cropping from the center
@@ -49,3 +49,4 @@ def get_file_list(data_dir, file_type='jpg'):
         # run the inference
         prediction = model.predict(data)
         print(prediction)
+get_file_list('Test', 'png')
